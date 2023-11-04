@@ -1,16 +1,25 @@
 function modifyThumbnails() {
   // Removing the first and foremost ad-slot
-  const firstAdSlot = document.querySelector(
-    ".ytd-in-feed-ad-layout-renderer"
-  );
-  firstAdSlot && firstAdSlot.remove();
+  // const firstAdSlot = document
+  //   .querySelector(".ytd-in-feed-ad-layout-renderer")
+  //   .querySelector("ytd-display-ad-renderer");
+  // firstAdSlot?.remove();
 
   const videoPreviewScreen = document.querySelectorAll(
     "ytd-rich-item-renderer"
   );
   const videoTitles = document.querySelectorAll("#video-title");
 
+  console.log(videoPreviewScreen.length, videoTitles.length);
+
   videoPreviewScreen.forEach((e, i) => {
+    let theIndex;
+    if (videoPreviewScreen.length > videoTitles.length && i === 0) return;
+    if (videoPreviewScreen.length > videoTitles.length && i > 0)
+      theIndex = i - 1;
+
+    if (videoPreviewScreen.length === videoTitles.length) theIndex = i;
+
     const thumbnail = e.querySelector("img");
     const thumbnailParent = thumbnail.parentElement;
 
@@ -25,7 +34,7 @@ function modifyThumbnails() {
     h1.style.textAlign = "center";
 
     // adding the title to h1
-    h1.textContent = videoTitles[i].innerText;
+    h1.textContent = videoTitles[theIndex].innerText;
 
     // Adding the class
     h1.classList.add("iamTheVideoTitle");
