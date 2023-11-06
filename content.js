@@ -10,17 +10,21 @@ function modifyThumbnails() {
   );
   const videoTitles = document.querySelectorAll("#video-title");
 
-  console.log(videoPreviewScreen.length, videoTitles.length);
+  // console.log(videoPreviewScreen.length, videoTitles.length);
 
   videoPreviewScreen.forEach((e, i) => {
     let theIndex;
+
+    // conditioning for the ad that comes in the first grid of the videos
     if (videoPreviewScreen.length > videoTitles.length && i === 0) return;
     if (videoPreviewScreen.length > videoTitles.length && i > 0)
       theIndex = i - 1;
-
     if (videoPreviewScreen.length === videoTitles.length) theIndex = i;
 
     const thumbnail = e.querySelector("img");
+
+    if (!thumbnail) return "no image found!";
+
     const thumbnailParent = thumbnail.parentElement;
 
     // making title center
@@ -46,19 +50,21 @@ function modifyThumbnails() {
     thumbnail.remove();
   });
 }
-// window.addEventListener("scroll", () => {
-//   const scrollPosition = window.scrollY;
-//   const totalHeight =
-//     document.documentElement.scrollHeight - window.innerHeight;
-//   const scrollPercentage = (scrollPosition / totalHeight) * 100;
+window.addEventListener("scroll", () => {
+  const scrollPosition = window.scrollY;
+  const totalHeight =
+    document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercentage = (scrollPosition / totalHeight) * 100;
 
-//   if (scrollPercentage > 80) {
-//   }
-//   return;
-// });
+  console.log(scrollPercentage)
+  if (scrollPercentage > 75) {
+    modifyThumbnails();
+  }
+  return;
+});
 
 window.addEventListener("load", () => {
   setTimeout(() => {
     modifyThumbnails();
-  }, 5000);
+  }, 3000);
 });
