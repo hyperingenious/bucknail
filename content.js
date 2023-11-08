@@ -1,10 +1,4 @@
 function modifyThumbnails() {
-  // Removing the first and foremost ad-slot
-  // const firstAdSlot = document
-  //   .querySelector(".ytd-in-feed-ad-layout-renderer")
-  //   .querySelector("ytd-display-ad-renderer");
-  // firstAdSlot?.remove();
-
   const videoPreviewScreen = document.querySelectorAll(
     "ytd-rich-item-renderer"
   );
@@ -56,10 +50,11 @@ window.addEventListener("scroll", () => {
     document.documentElement.scrollHeight - window.innerHeight;
   const scrollPercentage = (scrollPosition / totalHeight) * 100;
 
-  console.log(scrollPercentage)
-  if (scrollPercentage > 75) {
-    modifyThumbnails();
-  }
+  if (scrollPercentage > 75)
+    setTimeout(() => {
+      modifyThumbnails();
+    }, 1000);
+
   return;
 });
 
